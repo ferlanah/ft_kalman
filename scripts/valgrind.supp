@@ -1,0 +1,12 @@
+# libtest (the cargo test harness) keeps the main thread handle in a thread-local that is never
+# torn down: "possibly lost" 48 bytes owned by std, not by ft_kalman. Only used for test binaries.
+{
+   libtest-main-thread-handle
+   Memcheck:Leak
+   match-leak-kinds: possible
+   ...
+   fun:*init_current*
+   ...
+   fun:*test_main*
+   ...
+}
